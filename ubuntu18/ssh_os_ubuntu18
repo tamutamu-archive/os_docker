@@ -1,0 +1,1 @@
+ssh -i os_ubuntu18 root@10.30.0.2
