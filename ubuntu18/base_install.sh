@@ -30,6 +30,7 @@ INSTALL_PACKAGES="\
     git               \
     openjdk-8-jdk     \
     maven             \
+    manpages-ja manpages-ja-dev \
     net-tools
 "
 apt update
@@ -39,7 +40,10 @@ apt install -y --no-install-recommends ${INSTALL_PACKAGES}
 
 
 # ssh
-sed -i.bk -e 's/#PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config
+sed -i.bk \
+  -e 's/#PermitRootLogin.*$/PermitRootLogin yes/' \
+  -e 's/#PasswordAuthentication.*$/PasswordAuthentication no/' \
+  /etc/ssh/sshd_config
 
 mkdir -p  ~/.ssh && \
 touch  ~/.ssh/authorized_keys && \
@@ -110,3 +114,8 @@ pyenv install 3.6.8
 pyenv virtualenv 3.6.8 py368
 pyenv global py368
 
+pip install jupyterLab numpy pandas matplotlib bokeh
+
+mkdir /opt/scripts
+echo "jupyter lab --ip=0.0.0.0 --allow-root --no-browser" > /opt/scripts/start_jupyterLab.sh
+chmod +x /opt/scripts/start_jupyterLab.sh
