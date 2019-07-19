@@ -1,0 +1,1 @@
+ssh -i os_ubuntu18_base -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@10.30.0.2

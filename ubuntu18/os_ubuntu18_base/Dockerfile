@@ -7,4 +7,4 @@ RUN chmod +x ./provision.sh && ./provision.sh
 
 
 ### Entrypoint
-CMD /bin/bash
+ENTRYPOINT ["/sbin/init"]

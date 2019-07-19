@@ -30,6 +30,7 @@ INSTALL_PACKAGES="\
     git               \
     openjdk-8-jdk     \
     maven             \
+    gnupg2            \
     manpages-ja manpages-ja-dev \
     net-tools
 "
