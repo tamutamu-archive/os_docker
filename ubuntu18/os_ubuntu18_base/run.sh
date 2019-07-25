@@ -6,8 +6,7 @@ port=2222
 rm -f ${name} ${name}.pub
 ssh-keygen -b 2048 -t rsa -f ./${name} -q -N ""
 
-#docker run --privileged -d -p ${port}:22 --name ${name} ${name} /sbin/init
-docker run --privileged -d -p ${port}:22 --name ${name} ${name}
+docker run -d --name ${name} --security-opt seccomp=unconfined --tmpfs /run --tmpfs /run/lock -v /sys/fs/cgroup:/sys/fs/cgroup:ro -t os_ubuntu18_base
 sleep 3
 
 docker cp ./${name}.pub ${name}:/tmp/

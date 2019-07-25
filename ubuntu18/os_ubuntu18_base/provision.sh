@@ -32,6 +32,8 @@ INSTALL_PACKAGES="\
     maven             \
     gnupg2            \
     manpages-ja manpages-ja-dev \
+    iputils-ping      \
+    telnet            \
     net-tools
 "
 apt update
