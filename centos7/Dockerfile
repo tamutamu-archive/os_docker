@@ -15,6 +15,15 @@ RUN yum -y install epel-release
 RUN yum -y update && yum clean all
 RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
 
+### Proxy
+RUN echo "export http_proxy=${http_proxy}" >> /etc/profile.d/proxy.sh
+RUN echo "export https_proxy=${http_proxy}" >> /etc/profile.d/proxy.sh
+RUN echo "export HTTP_PROXY=${http_proxy}" >> /etc/profile.d/proxy.sh
+RUN echo "export HTTPS_PROXY=${http_proxy}" >> /etc/profile.d/proxy.sh
+
+
+##RUN yum groupinstall -y "Development tools"
+
 RUN yum install -y \
 sudo \
 which \
@@ -27,7 +36,9 @@ openssh-server \
 openssh-clients \
 zip unzip \
 net-tools \
+telnet            \
 git       \
+java-1.8.0-openjdk-devel  \
 tcpdump
 
 
@@ -36,6 +47,8 @@ RUN mkdir -p  ~/.ssh && \
     touch  ~/.ssh/authorized_keys && \
     chmod 600  ~/.ssh/authorized_keys && \
     echo root | passwd --stdin root
+
+RUN sed -i.bak -e 's/^GSSAPIAuthentication.*$/GSSAPIAuthentication no/' -e 's/.*UseDNS.*$/UseDNS no/' /etc/ssh/sshd_config
 
 
 ### Local JP
@@ -51,6 +64,10 @@ RUN ln -fs /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 ### man
 RUN sed -i -e"s/^tsflags=nodocs/\# tsflags=nodocs/" /etc/yum.conf
 RUN yum -y install man man-pages.noarch man-pages-ja.noarch
+
+
+## clean
+RUN rm -rf /tmp/* && yum clean all
 
 
 ### Entrypoint
