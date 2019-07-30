@@ -66,6 +66,9 @@ RUN sed -i -e"s/^tsflags=nodocs/\# tsflags=nodocs/" /etc/yum.conf
 RUN yum -y install man man-pages.noarch man-pages-ja.noarch
 
 
+### Mount
+RUN mkdir /mnt/mount
+
 ## clean
 RUN rm -rf /tmp/* && yum clean all
 
