@@ -6,7 +6,9 @@ port=2222
 rm -f ${name} ${name}.pub
 ssh-keygen -b 2048 -t rsa -f ./${name} -q -N ""
 
-docker run --privileged -d -p ${port}:22 --name ${name} ${name} /sbin/init
+docker run --privileged -d -p ${port}:22 \
+  --mount type=bind,source="$(pwd)"/mount,target=/mnt/mount \
+  --name ${name} ${name} /sbin/init
 sleep 3
 
 docker cp ./${name}.pub ${name}:/tmp/
