@@ -24,6 +24,7 @@ INSTALL_PACKAGES="\
     language-pack-ja  \
     openssh-server    \
     wget              \
+    python            \
     zip unzip         \
     tcpdump           \
     vim               \
